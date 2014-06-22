@@ -1,0 +1,11 @@
+{
+ 	"name": "soap-client-example",
+	
+	"scripts": {
+		"run": "node soapClientExample.js"
+	},
+	
+	"dependencies": {
+		"soap": "0.4.7"
+	}
+}

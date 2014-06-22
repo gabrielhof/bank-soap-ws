@@ -1,0 +1,8 @@
+#nodejs
+node_modules/
+
+#eclipse
+.classpath
+.project
+.settings/
+bin/
