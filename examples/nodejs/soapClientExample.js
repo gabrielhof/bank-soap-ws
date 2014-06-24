@@ -1,21 +1,12 @@
 var soap = require("soap");
-
 var account = "99887766";
 
 soap.createClient("http://127.0.0.1:8080/account/?wsdl", function(error, client) {
 	if (error) {
 		throw error;
 	}
-	
-	for (var i in client.wsdl.definitions.messages) {
-		if (i.indexOf('Response') < 0) {
-			var message = client.wsdl.definitions.messages[i];
-			message.element['$name'] = message.element['$type'];
-			message.element.targetNSAlias = null;
-			message.element.targetNamespace = null;
-		}
-	}
-	//return;
+
+	nodeSoapWorkaround(client.wsdl.definitions.messages);
 
 	client.deposit({accountNumber: account,  amount: 600.0}, function(error, result) {
 		console.log("R$ 600.00 depositados na conta " + account);
@@ -30,3 +21,17 @@ soap.createClient("http://127.0.0.1:8080/account/?wsdl", function(error, client)
 	});
 
 });
+
+/**
+ * Pequeno contorno para os problemas que tive com a lib node-soap
+ */
+function nodeSoapWorkaround(messages) {
+	for (var i in messages) {
+		if (i.indexOf('Response') < 0) {
+			var message = messages[i];
+			message.element['$name'] = message.element['$type'];
+			message.element.targetNSAlias = null;
+			message.element.targetNamespace = null;
+		}
+	}
+}
