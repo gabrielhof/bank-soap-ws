@@ -36,7 +36,7 @@ public class Account {
 		if (amount != null && amount > 0) {
 			synchronized (this) {
 				if (balance < amount) {
-					amount = amount - balance;
+					amount = balance;
 					balance = 0D;
 				} else {
 					balance -= amount;
